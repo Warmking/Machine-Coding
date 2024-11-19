@@ -1,0 +1,57 @@
+*,*::before,*::after{
+  box-sizing: border-box;
+}
+body{
+    background: linear-gradient(to right, #00aaff,#00FF6C);
+    /* background-color: rgb(77, 75, 75); */
+}
+.cal__grid{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4,6rem);
+  grid-template-rows: minmax(7rem,auto) repeat(5,6rem);
+}
+
+.output{
+  grid-column: 1/-1;
+  background-color: rgba(0, 0, 0, 0.75);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0.75rem;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.output .previous__operand{
+  font-size: 1.5rem;
+}
+.output .current__operand{
+  font-size: 2.5rem;
+}
+
+
+.cal__grid > button {
+  background-color: rgba(255, 255, 255, 0.7);
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  outline: none;
+  border: 1px solid white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.cal__grid > button:hover,
+.cal__grid > button:focus {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.cal__grid .equal{
+  background-color: rgb(242, 178, 68);
+}
+
+.span__two {
+  grid-column: span 2;
+}
