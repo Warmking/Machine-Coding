@@ -12,17 +12,20 @@ export const ACTIONS = {
 };
 
 const initialState = {
-  currentOperand : null,
-  previousOperand:null,
-  operation:null
-}
+  currentOperand: null,
+  previousOperand: null,
+  operation: null,
+  onePluse:false
+};
 
-const INTEGER_FORMATTER = new Intl.NumberFormat("en-IN",{maximumFractionDigits:0});
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-IN", {
+  maximumFractionDigits: 0,
+});
 
 function numberFormater(operand) {
   if (operand == null) return;
-  const [integer,decimal] = operand.split('.')
-  if(decimal == null) return INTEGER_FORMATTER.format(integer)
+  const [integer, decimal] = operand.split(".");
+  if (decimal == null) return INTEGER_FORMATTER.format(integer);
   return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
 }
 
@@ -86,25 +89,33 @@ function reducer(state, { type, payload }) {
       }
       return {
         ...state,
-        previousOperand: evaluate(state),
+        previousOperand: String(evaluate(state)),
         operation: payload.operation,
         currentOperand: null,
       };
     case ACTIONS.EVALUATE:
+      if(state.previousOperand == '1' && state.currentOperand==null){
+        console.log(state.onePluse)
+            return {
+              ...state,
+              onePluse:!state?.onePluse,
+            }
+      }
       if (
         state.currentOperand == null ||
         state.previousOperand == null ||
         state.operation == null
       ) {
-        console.log(state);
+        // console.log(state);
         return state;
       }
+      
       return {
         ...state,
         previousOperand: null,
         operation: null,
         overWrite: true,
-        currentOperand: evaluate(state),
+        currentOperand: String(evaluate(state)),
       };
 
     default:
@@ -115,6 +126,7 @@ function reducer(state, { type, payload }) {
 function evaluate({ currentOperand, previousOperand, operation }) {
   const prev = parseFloat(previousOperand);
   const current = parseFloat(currentOperand);
+  console.log(current)
   if (isNaN(prev) || isNaN(current)) return "";
   let computation = "";
   switch (operation) {
@@ -139,13 +151,16 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 function App() {
   const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
     reducer,
-    {initialState}
+    { initialState }
   );
   // console.log(initialState);
   return (
-    <>
+    <div className="app__container">
+    <div className="app__name">Calculator</div>
       <div className="cal__grid">
         <div className="output">
+          <div className="output-absolute">One pluse</div>
+          
           <div className="previous__operand">
             {numberFormater(previousOperand)} {operation}
           </div>
@@ -187,7 +202,7 @@ function App() {
           =
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
