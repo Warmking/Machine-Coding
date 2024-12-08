@@ -15,7 +15,7 @@ const initialState = {
   currentOperand: null,
   previousOperand: null,
   operation: null,
-  onePluse:false
+  onePluse: false
 };
 
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-IN", {
@@ -46,6 +46,7 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         currentOperand: `${state.currentOperand || ""}${payload.digit}`,
+        onePluse:false
       };
     case ACTIONS.CLEAR:
       return {};
@@ -94,11 +95,22 @@ function reducer(state, { type, payload }) {
         currentOperand: null,
       };
     case ACTIONS.EVALUATE:
-      if(state.previousOperand == '1' && state.currentOperand==null){
-        console.log(state.onePluse)
+      if(state.onePluse){
+        return{
+          ...state,
+          previousOperand:null,
+          operation:null,
+          currentOperand:null,
+          onePluse:false,
+        }
+      }
+      if(state.previousOperand == '1' && state.currentOperand==null && state.operation=='+'){
             return {
               ...state,
-              onePluse:!state?.onePluse,
+              previousOperand:null,
+              operation:null,
+              currentOperand:null,
+              onePluse:true,
             }
       }
       if (
@@ -126,7 +138,6 @@ function reducer(state, { type, payload }) {
 function evaluate({ currentOperand, previousOperand, operation }) {
   const prev = parseFloat(previousOperand);
   const current = parseFloat(currentOperand);
-  console.log(current)
   if (isNaN(prev) || isNaN(current)) return "";
   let computation = "";
   switch (operation) {
@@ -149,7 +160,7 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 }
 
 function App() {
-  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+  const [{ currentOperand, previousOperand, operation,onePluse }, dispatch] = useReducer(
     reducer,
     { initialState }
   );
@@ -159,7 +170,9 @@ function App() {
     <div className="app__name">Calculator</div>
       <div className="cal__grid">
         <div className="output">
-          <div className="output-absolute">One pluse</div>
+          <div style={{
+            visibility:onePluse?'visible':'hidden'
+          }} className="output-absolute">One pluse</div>
           
           <div className="previous__operand">
             {numberFormater(previousOperand)} {operation}

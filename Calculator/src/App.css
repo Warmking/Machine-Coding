@@ -36,7 +36,7 @@ body{
   align-items: center;
   font-size: xx-large;
   background-color: crimson;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .app__name{
   visibility: hidden;
