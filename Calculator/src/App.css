@@ -1,6 +1,9 @@
 *,*::before,*::after{
   box-sizing: border-box;
 }
+:root {
+  --responsive-height: 6rem;
+}
 body{
     /* background: linear-gradient(to right, hsl(200, 100%, 50%),#00FF6C); */
     background-color: #212529;
@@ -29,7 +32,7 @@ body{
 }
 .output .output-absolute{
   position: absolute;
-  height: 6rem;
+  height: var(--responsive-height);
   width: 95%;
   display: flex;
   justify-content: center;
@@ -72,6 +75,9 @@ body{
 }
 
 @media only screen and (max-width: 600px) {
+  :root {
+    --responsive-height: 10rem;
+  }
   body{
     background-color: #0d1b2a;
   }
@@ -102,7 +108,7 @@ body{
 }
 .output .output-absolute{
   position: absolute;
-  height: 10rem;
+  height: var(--responsive-height);
   width: 95%;
   display: flex;
   justify-content: center;

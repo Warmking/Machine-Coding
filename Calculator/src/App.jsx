@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import "./App.css";
 import DigitButton from "./components/DigitButton";
 import OperationButton from "./components/OperationButton";
+import { motion } from "framer-motion";
 
 export const ACTIONS = {
   ADD_DIGIT: "add-digit",
@@ -15,7 +16,7 @@ const initialState = {
   currentOperand: null,
   previousOperand: null,
   operation: null,
-  onePluse: false
+  onePluse: false,
 };
 
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-IN", {
@@ -46,7 +47,7 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         currentOperand: `${state.currentOperand || ""}${payload.digit}`,
-        onePluse:false
+        onePluse: false,
       };
     case ACTIONS.CLEAR:
       return {};
@@ -95,23 +96,27 @@ function reducer(state, { type, payload }) {
         currentOperand: null,
       };
     case ACTIONS.EVALUATE:
-      if(state.onePluse){
-        return{
+      if (state.onePluse) {
+        return {
           ...state,
-          previousOperand:null,
-          operation:null,
-          currentOperand:null,
-          onePluse:false,
-        }
+          previousOperand: null,
+          operation: null,
+          currentOperand: null,
+          onePluse: false,
+        };
       }
-      if(state.previousOperand == '1' && state.currentOperand==null && state.operation=='+'){
-            return {
-              ...state,
-              previousOperand:null,
-              operation:null,
-              currentOperand:null,
-              onePluse:true,
-            }
+      if (
+        state.previousOperand == "1" &&
+        state.currentOperand == null &&
+        state.operation == "+"
+      ) {
+        return {
+          ...state,
+          previousOperand: null,
+          operation: null,
+          currentOperand: null,
+          onePluse: true,
+        };
       }
       if (
         state.currentOperand == null ||
@@ -121,7 +126,7 @@ function reducer(state, { type, payload }) {
         // console.log(state);
         return state;
       }
-      
+
       return {
         ...state,
         previousOperand: null,
@@ -160,20 +165,58 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 }
 
 function App() {
-  const [{ currentOperand, previousOperand, operation,onePluse }, dispatch] = useReducer(
-    reducer,
-    { initialState }
-  );
+  const [{ currentOperand, previousOperand, operation, onePluse }, dispatch] =
+    useReducer(reducer, { initialState });
   // console.log(initialState);
   return (
     <div className="app__container">
-    <div className="app__name">Calculator</div>
+      <div className="app__name">Calculator</div>
       <div className="cal__grid">
         <div className="output">
-          <div style={{
-            visibility:onePluse?'visible':'hidden'
-          }} className="output-absolute">One pluse</div>
-          
+          {/* <motion.div
+        style={styles.div}
+        initial={{ width: "0%", height: "0.1rem" }}
+        animate={
+          startAnimation
+            ? { width: "100%", height: "5rem" }
+            : { width: "0%", height: "0.1rem" }
+        }
+        transition={{
+          width: { duration: 2, ease: "easeOut" },
+          height: { delay: 2, duration: 1, ease: "easeOut" },
+        }}
+      ></motion.div> */}
+          <motion.div
+            style={{
+              visibility: onePluse ? "visible" : "hidden",
+              color:'black',
+            }}
+            initial={{ width: "0%", height: "0.1rem"}}
+            animate={
+          onePluse
+            ? { width: "95%", height: "var(--responsive-height)" }
+            : { width: "0%", height: "0.1rem" }
+        }
+        transition={{
+          width: { duration: 1, ease: "easeOut" },
+          height: { delay: 1, duration: 1, ease: "easeOut" },
+        }}
+            className="output-absolute"
+          >
+          <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={onePluse ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{
+            delay: 2, // Starts after the div animation finishes
+            duration: 0.5,
+            ease: "easeOut",
+          }}
+          className="text"
+        >
+          Mohan Dev
+        </motion.span>
+          </motion.div>
+
           <div className="previous__operand">
             {numberFormater(previousOperand)} {operation}
           </div>
