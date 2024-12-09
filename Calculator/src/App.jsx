@@ -170,51 +170,49 @@ function App() {
   // console.log(initialState);
   return (
     <div className="app__container">
-      <div className="app__name">Calculator</div>
       <div className="cal__grid">
         <div className="output">
-          {/* <motion.div
-        style={styles.div}
-        initial={{ width: "0%", height: "0.1rem" }}
-        animate={
-          startAnimation
-            ? { width: "100%", height: "5rem" }
-            : { width: "0%", height: "0.1rem" }
-        }
-        transition={{
-          width: { duration: 2, ease: "easeOut" },
-          height: { delay: 2, duration: 1, ease: "easeOut" },
-        }}
-      ></motion.div> */}
           <motion.div
             style={{
               visibility: onePluse ? "visible" : "hidden",
-              color:'black',
+              color: "white",
             }}
-            initial={{ width: "0%", height: "0.1rem"}}
+            initial={{ width: "0%", height: "0.1rem" }}
             animate={
-          onePluse
-            ? { width: "95%", height: "var(--responsive-height)" }
-            : { width: "0%", height: "0.1rem" }
-        }
-        transition={{
-          width: { duration: 1, ease: "easeOut" },
-          height: { delay: 1, duration: 1, ease: "easeOut" },
-        }}
+              onePluse
+                ? { width: "95%", height: "var(--responsive-height)" }
+                : { width: "0%", height: "0.1rem" }
+            }
+            transition={{
+              width: { duration: 1, ease: "easeOut" },
+              height: { delay: 1, duration: 1, ease: "easeOut" },
+            }}
             className="output-absolute"
           >
-          <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={onePluse ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{
-            delay: 2, // Starts after the div animation finishes
-            duration: 0.5,
-            ease: "easeOut",
-          }}
-          className="text"
-        >
-          Mohan Dev
-        </motion.span>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={onePluse ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+              transition={{
+                delay: 2, // Starts after the div animation finishes
+                duration: 0.5,
+                ease: "easeOut",
+              }}
+              className="text"
+            >
+              Never
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={onePluse ? { opacity: 1, y: -20 } : { opacity: 0, y: 20 }}
+              transition={{
+                delay: 2, // Starts after the div animation finishes
+                duration: 0.5,
+                ease: "easeOut",
+              }}
+              className="text"
+            >
+              Settle
+            </motion.div>
           </motion.div>
 
           <div className="previous__operand">

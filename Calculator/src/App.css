@@ -1,19 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 *,*::before,*::after{
   box-sizing: border-box;
 }
 :root {
-  --responsive-height: 6rem;
+  --body-font: "Poppins", sans-serif;
+  --responsive-height: 9rem;
 }
 body{
     /* background: linear-gradient(to right, hsl(200, 100%, 50%),#00FF6C); */
     background-color: #212529;
+    font-family: var(--body-font);
 }
 .cal__grid{
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(4,5rem);
-  grid-template-rows: minmax(9rem,auto) repeat(5,5rem);
-
+  grid-template-rows: minmax(12rem,auto) repeat(5,5rem);
+  margin-top: 3rem;
 }
 
 .output{
@@ -34,12 +37,21 @@ body{
   position: absolute;
   height: var(--responsive-height);
   width: 95%;
+  border-radius: 0.5rem;
+  left:0.5rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: xx-large;
-  background-color: crimson;
+  font-size: 2rem;
+  background-color: #F50514;
   /* visibility: hidden; */
+}
+.text{
+  letter-spacing: -1.5px;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 .app__name{
   visibility: hidden;
@@ -79,7 +91,7 @@ body{
     --responsive-height: 10rem;
   }
   body{
-    background-color: #0d1b2a;
+    background-color: black;
   }
    .app__container{
     overflow: hidden;
@@ -88,10 +100,10 @@ body{
 .cal__grid{
   
   grid-template-columns: repeat(4,5.5rem);
-  grid-template-rows: minmax(10rem,0) repeat(5,5rem);
+  grid-template-rows: minmax(12rem,0) repeat(5,5rem);
   /* padding: rem; */
   gap:.1rem;
-  bottom:0;
+  margin-top: 4rem;
 }
 .output{
   grid-column: 1/-1;
@@ -114,7 +126,7 @@ body{
   justify-content: center;
   align-items: center;
   font-size: xx-large;
-  background-color: crimson;
+  background-color: #F50514;
 }
 .app__name{
   visibility: visible;
